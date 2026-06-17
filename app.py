@@ -38,30 +38,13 @@ except FileNotFoundError:
 
 @st.cache_resource
 def load_model():
-    """Load pre-trained ML model or auto-generate a fallback model for demo continuity"""
+    """Load pre-trained ML model generated from AWS SageMaker"""
     model_path = 'models/compressor_risk_model.pkl'
-    
-    # Try loading existing trained model
-    if os.path.exists(model_path):
-        try:
-            return joblib.load(model_path)
-        except Exception:
-            pass # Fallback if file is corrupted
-            
-    # Auto-generation fallback so your app always runs successfully
-    os.makedirs('models', exist_ok=True)
-    from sklearn.ensemble import RandomForestClassifier
-    
-    # Generate dummy data matching the 5 slider features
-    X_dummy = np.random.rand(100, 5)
-    y_dummy = np.random.randint(0, 2, 100)
-    
-    mock_model = RandomForestClassifier(n_estimators=10, random_state=42)
-    mock_model.fit(X_dummy, y_dummy)
-    
-    # Save mock asset for future cycles
-    joblib.dump(mock_model, model_path)
-    return mock_model
+    try:
+        return joblib.load(model_path)
+    except FileNotFoundError:
+        st.error(f"Error: Pre-trained model asset not found at '{model_path}'. Please ensure your SageMaker model is placed in the models directory.")
+        st.stop()
 
 def get_risk_level(risk_percentage):
     """Determine risk level category"""
@@ -143,16 +126,24 @@ discharge_pressure = st.sidebar.slider("Discharge Pressure (bar)", 6.0, 10.0, 8.
 operating_hours = st.sidebar.slider("Operating Hours/Year", 1000, 10000, 8500, 100)
 
 # ============================================================
-# RISK CALCULATION
+# RISK CALCULATION (AWS SAGEMAKER MODEL INFERENCE)
 # ============================================================
 
+# Component-specific deterministic failure flags
 bearing_risk = 1 if (vibration > 3.0 and temperature > 72) else 0
 valve_risk = 1 if (discharge_pressure - suction_pressure) > 14 else 0
 overheating_risk = 1 if temperature > 75 else 0
 
+# Construct structured input feature vector matching the model matrix shape
 input_features = np.array([[vibration, temperature, discharge_pressure, suction_pressure, operating_hours]])
-risk_probability = model.predict_proba(input_features)[0][1]
-risk_percentage = risk_probability * 100
+
+try:
+    # Perform live inference utilizing the structural predictive weights of the Random Forest asset
+    risk_probability = model.predict_proba(input_features)[0][1]
+    risk_percentage = risk_probability * 100
+except Exception as e:
+    st.error(f"Inference Engine Error: Failed to evaluate structural features. Verify the feature matrix sequence orientation. Details: {e}")
+    st.stop()
 
 risk_level, risk_color = get_risk_level(risk_percentage)
 recommendation = get_recommendation(risk_percentage)
