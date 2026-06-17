@@ -1,0 +1,109 @@
+/* =====================================================
+   ENTERPRISE STREAMLIT OVERRIDES (styles.css)
+   ===================================================== */
+
+/* Global Custom CSS Variables matching config.toml */
+:root {
+    --primary-color: #1f77b4;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --background: #ffffff;
+    --surface: #f5f7fa;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
+}
+
+/* ===== App Layout & Block Padding Fixes ===== */
+div[data-testid="stAppViewBlockContainer"] {
+    padding: 3rem 4rem !important;
+    max-width: 1600px !important;
+}
+
+/* ===== Modern Sidebar Customization ===== */
+section[data-testid="stSidebar"] {
+    background-color: var(--surface) !important;
+    border-right: 1px solid var(--border-color) !important;
+    padding-top: 2rem;
+}
+
+/* Force Sidebar Text Visibility */
+section[data-testid="stSidebar"] h3, 
+section[data-testid="stSidebar"] span {
+    color: var(--text-primary) !important;
+}
+
+/* ===== Professional Typography Overrides ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    color: var(--secondary-color) !important;
+    font-weight: 700 !important;
+}
+
+h1 {
+    font-size: 2.5rem !important;
+    letter-spacing: -0.03em !important;
+    margin-bottom: 0.25rem !important;
+}
+
+/* ===== Modernized Metric Cards (st.metric) ===== */
+div[data-testid="stMetric"] {
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    padding: 1.25rem 1.5rem !important;
+    box-shadow: var(--shadow) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* Metric Card Hover Animation */
+div[data-testid="stMetric"]:hover {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 8px 24px rgba(31, 119, 180, 0.12) !important;
+    transform: translateY(-3px);
+}
+
+/* Adjust text weights inside metrics */
+div[data-testid="stMetricLabel"] > div {
+    font-size: 0.9rem !important;
+    color: var(--text-secondary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+div[data-testid="stMetricValue"] > div {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: var(--secondary-color) !important;
+}
+
+/* ===== Styled Sidebar Sliders ===== */
+div[data-testid="stSlider"] {
+    padding-bottom: 1.5rem;
+}
+
+/* Custom accent fill for active slider track */
+div[data-testid="stSlider"] div[role="slider"] {
+    background-color: var(--primary-color) !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* ===== HTML Container Styling Fixes ===== */
+/* Ensures custom HTML recommendations read variables clean */
+div[data-testid="stMarkdownContainer"] div {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== Responsive Adaptations ===== */
+@media (max-width: 1024px) {
+    div[data-testid="stAppViewBlockContainer"] {
+        padding: 1.5rem 2rem !important;
+    }
+    h1 {
+        font-size: 2rem !important;
+    }
+}
