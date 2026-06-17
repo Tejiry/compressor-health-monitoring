@@ -228,7 +228,7 @@ with col2:
 st.divider()
 
 # ============================================================
-# COGNITIVE SCENARIO BREAKDOWN
+# COGNITIVE SCENARIO BREAKDOWN (SYNCHRONIZED EDITION)
 # ============================================================
 
 st.subheader("Predictive Breakdown by Component Failure Pattern")
@@ -236,16 +236,41 @@ st.subheader("Predictive Breakdown by Component Failure Pattern")
 col1, col2, col3 = st.columns(3, gap="medium")
 
 with col1:
-    st.metric("Bearing Seizure Signature", "DETECTED (100%)" if bearing_seizure_flag else "NORMAL (0%)")
-    st.caption("Triggers on High Vibration + Lubricant Heat")
+    # Flags if bearing anomalies or mechanical indicators cross limits
+    if bearing_seizure_flag:
+        bearing_status, bearing_val = "CRITICAL PATH", 100
+    elif vibration > 2.6 or temperature > 71:
+        bearing_status, bearing_val = "ELEVATED", 65
+    else:
+        bearing_status, bearing_val = "NORMAL", 0
+    st.metric("Bearing Seizure Signature", f"{bearing_status} ({bearing_val}%)")
+    st.caption("Monitors structural vibration balances & internal heat grids.")
 
 with col2:
-    st.metric("Piston Valve Leakage Signature", "DETECTED (100%)" if valve_failure_flag else "NORMAL (0%)")
-    st.caption("Triggers on High Suction + Low Discharge Pressure")
+    # Flags if discharge decreases or suction increases abnormally (Valve leakage signature)
+    if valve_failure_flag:
+        valve_status, valve_val = "CRITICAL PATH", 100
+    elif risk_level == "CRITICAL" and (discharge_pressure < 6.5 or suction_pressure > 1.8):
+        valve_status, valve_val = "CRITICAL PATH", 100
+    elif discharge_pressure < 7.0 or suction_pressure > 1.5:
+        valve_status, valve_val = "ELEVATED", 55
+    else:
+        valve_status, valve_val = "NORMAL", 0
+    st.metric("Piston Valve Leakage Signature", f"{valve_status} ({valve_val}%)")
+    st.caption("Monitors compression drops and backward leakage pathways.")
 
 with col3:
-    st.metric("Intake Filtration Blockage Signature", "DETECTED (100%)" if intake_blockage_flag else "NORMAL (0%)")
-    st.caption("Triggers on Clogged Low Intake Suction Levels")
+    # Flags if suction goes very low during a system warning state (Intake blockage signature)
+    if intake_blockage_flag:
+        intake_status, intake_val = "CRITICAL PATH", 100
+    elif risk_level == "CRITICAL" and suction_pressure < 1.4:
+        intake_status, intake_val = "CRITICAL PATH", 100
+    elif suction_pressure < 1.0:
+        intake_status, intake_val = "ELEVATED", 45
+    else:
+        intake_status, intake_val = "NORMAL", 0
+    st.metric("Intake Filtration Blockage Signature", f"{intake_status} ({intake_val}%)")
+    st.caption("Monitors air flow restrictions and clogged sensor inputs.")
 
 st.divider()
 
