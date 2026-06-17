@@ -42,13 +42,3 @@ compressor-health-monitoring/
 ├── requirements.txt            # Application container environment dependencies
 └── README.md                   # Enterprise technical project documentation
 
-📊 Industrial Dataset EngineeringTo establish resilient model decision boundaries, the underlying training array (compressor_clean_preprocessed.csv) maps complex physical mechanical realities across 48 historical data rows:Intake Filtration Blockage Signature: Restricted air intake lines characterized by sharp drops in suction pressure ($0.4\text{ bar} - 0.7\text{ bar}$) paired with depressed discharge outputs ($6.0\text{ bar} - 6.8\text{ bar}$).Piston Ring & Valve Leakage Signature: Internal gas blow-by failures characterized by counter-pressure accumulation spikes in the suction chamber ($2.1\text{ bar} - 2.6\text{ bar}$) and an inability to build discharge pressure ($5.5\text{ bar} - 6.4\text{ bar}$).High-Load Safe Operations: Incorporates summer high-load thermal signatures ($73^\circ\text{C} - 76^\circ\text{C}$) without vibration variances to eliminate false positive alarms.
-
-🛠️ Local Development & Installation
-Follow these steps to run the analytics ecosystem locally:
-
-1. Clone the Repository
-Bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
-cd YOUR_REPOSITORY_NAME
-
