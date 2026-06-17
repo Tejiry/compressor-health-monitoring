@@ -19,7 +19,7 @@ from datetime import datetime
 # ============================================================
 
 st.set_page_config(
-    page_title="IGHF Asset Monitoring Center",
+    page_title="Compressor Health Monitoring System",
     page_icon="⚙️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -107,7 +107,7 @@ def get_recommendation(risk_level):
 col1, col2 = st.columns([3, 1])
 
 with col1:
-    st.title("Integrated Gas Handling Facility (IGHF) Dashboard")
+    st.title("Compressor Health Monitoring System")
     st.markdown("**Predictive Process Anomaly & Real-time Asset Reliability Intelligence**")
 
 with col2:
