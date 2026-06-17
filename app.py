@@ -138,7 +138,6 @@ valve_failure_flag = 1 if (discharge_pressure < 6.5 and suction_pressure > 2.0) 
 intake_blockage_flag = 1 if (suction_pressure < 0.7 and discharge_pressure < 6.8) else 0
 
 # 2. Reshape raw dashboard UI selections into a structured 2D array matching SageMaker feature columns:
-# [average_vibration_level_mm_s, lubricant_temperature_c, average_discharge_pressure_bar, average_suction_pressure_bar, operating_hours_hrs_year]
 live_telemetry_stream = np.array([[vibration, temperature, discharge_pressure, suction_pressure, operating_hours]])
 
 if model is not None:
@@ -162,6 +161,24 @@ risk_percentage = float(np.clip(risk_percentage, 5.0, 98.5))
 
 risk_level, risk_color = get_risk_level(risk_percentage)
 recommendation = get_recommendation(risk_percentage)
+
+# ============================================================
+# INDUSTRY-STANDARD LIVE ALERT POP-UPS & TOASTS
+# ============================================================
+
+if risk_level == "CRITICAL":
+    st.error(
+        f"🚨 **CRITICAL ALARM CAUGHT:** System failure risk has peaked at **{risk_percentage:.1f}%**. "
+        "Immediate engineering intervention required! Execute prescriptive playbooks below."
+    )
+    st.toast("⚠️ CRITICAL SYSTEM ANOMALY DETECTED!", icon="🚨")
+
+elif risk_level == "ELEVATED":
+    st.toast(
+        f"⚠️ **Elevated Risk Warning:** Telemetry variance registered anomaly paths ({risk_percentage:.1f}%). "
+        "Scheduling maintenance field monitoring checks is advised.", 
+        icon="⚠️"
+    )
 
 # ============================================================
 # MAIN DASHBOARD OUTPUT LAYER
