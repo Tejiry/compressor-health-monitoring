@@ -108,7 +108,7 @@ col1, col2 = st.columns([3, 1])
 
 with col1:
     st.title("Compressor Health Monitoring System")
-    st.markdown("**Real-time Risk Assessment & Predictive Maintenance Intelligence (14-Parameter Enterprise Edition)**")
+    st.markdown("**Real-time Risk Assessment & Predictive Maintenance Intelligence (14-Parameter Edition)**")
 
 with col2:
     st.info(f"**Updated**\n{datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -119,27 +119,28 @@ st.divider()
 # SIDEBAR - INPUT PARAMETERS (14-PARAMETER LIVE STREAM)
 # ============================================================
 
-st.sidebar.markdown("### 🎛️ Core Baselines")
+st.sidebar.markdown("###  Core Baselines")
 st.sidebar.divider()
 
-operating_hours = st.sidebar.slider("Operating Hours/Year", 1000, 10000, 8000)
-suction_pressure = st.sidebar.slider("Suction Pressure (bar)", 0.5, 3.0, 1.1, 0.1)
-discharge_pressure = st.sidebar.slider("Discharge Pressure (bar)", 5.0, 15.0, 9.9, 0.1)
-vibration = st.sidebar.slider("Vibration Level (mm/s)", 0.0, 6.0, 4.7, 0.1)
-temperature = st.sidebar.slider("Lubricant Temp (°C)", 40, 110, 76, 1)
+# Default values calibrated to reflect ideal, healthy operating conditions
+operating_hours = st.sidebar.slider("Operating Hours/Year", 1000, 10000, 4500)
+suction_pressure = st.sidebar.slider("Suction Pressure (bar)", 0.5, 3.0, 1.2, 0.1)
+discharge_pressure = st.sidebar.slider("Discharge Pressure (bar)", 5.0, 15.0, 8.0, 0.1)
+vibration = st.sidebar.slider("Vibration Level (mm/s)", 0.0, 6.0, 1.8, 0.1)
+temperature = st.sidebar.slider("Lubricant Temp (°C)", 40, 110, 65, 1)
 
-st.sidebar.markdown("### 📊 Thermodynamic Performance")
+st.sidebar.markdown("###  Thermodynamic Performance")
 st.sidebar.divider()
 
-compression_ratio = st.sidebar.slider("Compression Ratio", 2.0, 15.0, 9.2, 0.1)
-discharge_temp = st.sidebar.slider("Discharge Temp (°C)", 50, 130, 101, 1)
-bearing_temp = st.sidebar.slider("Bearing Temp (°C)", 40, 120, 82, 1)
-oil_pressure = st.sidebar.slider("Oil Pressure (bar)", 5.0, 20.0, 12.5, 0.1)
-power_consumption = st.sidebar.slider("Power Consumption (kW)", 10.0, 100.0, 44.8, 0.5)
-efficiency = st.sidebar.slider("Actual Efficiency (%)", 20.0, 100.0, 55.1, 0.5)
-pressure_drop = st.sidebar.slider("Pressure Drop (bar)", 0.0, 3.0, 1.1, 0.1)
-filter_diff = st.sidebar.slider("Filter Differential (bar)", 0.0, 4.0, 1.7, 0.1)
-valve_score = st.sidebar.slider("Valve Condition Score (1-10)", 1, 10, 3, 1)
+compression_ratio = st.sidebar.slider("Compression Ratio", 2.0, 15.0, 6.5, 0.1)
+discharge_temp = st.sidebar.slider("Discharge Temp (°C)", 50, 130, 85, 1)
+bearing_temp = st.sidebar.slider("Bearing Temp (°C)", 40, 120, 68, 1)
+oil_pressure = st.sidebar.slider("Oil Pressure (bar)", 5.0, 20.0, 14.5, 0.1)
+power_consumption = st.sidebar.slider("Power Consumption (kW)", 10.0, 100.0, 35.0, 0.5)
+efficiency = st.sidebar.slider("Actual Efficiency (%)", 20.0, 100.0, 82.0, 0.5)
+pressure_drop = st.sidebar.slider("Pressure Drop (bar)", 0.0, 3.0, 0.4, 0.1)
+filter_diff = st.sidebar.slider("Filter Differential (bar)", 0.0, 4.0, 0.6, 0.1)
+valve_score = st.sidebar.slider("Valve Condition Score (1-10)", 1, 10, 9, 1)
 
 # ============================================================
 # LIVE MACHINE LEARNING INFERENCE PIPELINE
@@ -164,10 +165,10 @@ if model is not None:
         risk_percentage = float(ml_failure_probability * 100)
     except Exception:
         # Safeguard fallback value if cloud model encounters an issue
-        risk_percentage = 24.5
+        risk_percentage = 12.5
 else:
     # Safe system demonstration approximation if running without model deployment link
-    risk_percentage = 22.5
+    risk_percentage = 10.0
 
 # 3. Dynamic overrides to protect equipment if strict structural hardware limits are breached
 if bearing_seizure_flag or valve_failure_flag or intake_blockage_flag:
