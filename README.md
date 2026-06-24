@@ -441,7 +441,7 @@ s3_client.upload_file(
 
 3. **Live URL Created**
    ```
-   https://yourusername-compressor-health-monitoring.streamlit.app/
+   https://compreappr-health-monitoring-dzmttiyfuvtmdh5ycig2nb.streamlit.app/
    ```
 
 ---
@@ -536,7 +536,7 @@ We welcome contributions! Please follow these steps:
 
 1. **Fork the Repository**
    ```bash
-   git clone https://github.com/yourusername/compressor-health-monitoring.git
+   git clone https://github.com/cybern3m3/compressor-health-monitoring.git
    ```
 
 2. **Create Feature Branch**
