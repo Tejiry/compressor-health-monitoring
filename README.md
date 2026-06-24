@@ -214,7 +214,7 @@ pip 21.0+
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/compressor-health-monitoring.git
+git clone https://github.com/Tejiry/compressor-health-monitoring.git
 cd compressor-health-monitoring
 ```
 
@@ -441,7 +441,7 @@ s3_client.upload_file(
 
 3. **Live URL Created**
    ```
-   https://compreappr-health-monitoring-dzmttiyfuvtmdh5ycig2nb.streamlit.app/
+   https://compreappr-health-monitoring-9njvlsr9rx6m7gfshc6ugj.streamlit.app/
    ```
 
 ---
